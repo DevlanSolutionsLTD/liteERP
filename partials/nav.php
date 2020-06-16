@@ -7,19 +7,10 @@
                 </div>
                 <div class="col-md-10 text-right menu-1">
                     <ul>
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li class="has-dropdown">
-                            <a href="work.html">Works</a>
-                            <ul class="dropdown">
-                                <li><a href="work-grid.html">Works grid with text</a></li>
-                                <li><a href="work-grid-without-text.html">Works grid w/o text</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="blog.html">Blog</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="shop.html">Shop</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="index.php">Home</a></li>
+                        <li><a href="about.php">About</a></li>
+                        <li><a href="features.php">Features</a></li>
+                        <li><a target="_blank" href="https://github.com/Trans-DevLan/liteERP/archive/master.zip">Download</a></li>
                     </ul>
                 </div>
             </div>
