@@ -137,6 +137,41 @@
 						</div>
 					</div>				
 				</div>
+				<div class="row">
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="icon-user-tie"></i>
+							</span>
+							<div class="desc">
+								<h3>Human Resouce &amp; Payroll</h3>
+								<p>liteERP helps you to manage full employee cycle from onboarding, payroll, attendance, expense claims, assets to separation.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="icon-adjustments"></i>
+							</span>
+							<div class="desc">
+								<h3>Coporation Asset management</h3>
+								<p>liteERP will help your organization to mantain and manage details of  assets, their movement, value adjustments and depreciations.</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-4 text-center animate-box">
+						<div class="services">
+							<span class="icon">
+								<i class="icon-bubbles3"></i>
+							</span>
+							<div class="desc">
+								<h3>Help Desk</h3>
+								<p>liteERP is shipped with an in-build help desk module and a rich documentation features. Also it helps to deliver a better sevice expence with an intuitive issue tracker and intergrated knowledge base.</p>
+							</div>
+						</div>
+					</div>				
+				</div>
 			</div>
 		</div>
 
