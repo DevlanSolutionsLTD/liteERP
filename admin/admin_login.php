@@ -1,22 +1,22 @@
 <?php
 
-//session_start();
+session_start();
 include('includes/config.php');
 if(isset($_POST['login']))
 {
 $email=$_POST['email'];
 $username=$_POST['email'];
 $password = sha1(md5($_POST['password']));
-$stmt=$conn->prepare("SELECT email,username,password,userid FROM Superadmin WHERE email=? or username=? and password=? ");
+$stmt=$conn->prepare("SELECT userid,email,username,password FROM Superadmin WHERE email=? or username=? and password=? ");
 				$stmt->bind_param('sss',$email,$username,$password);
 				$stmt->execute();
 				$stmt -> bind_result($email,$username,$password,$userid);
 				$rs=$stmt->fetch();
-			
+                $_SESSION['userid']=$userid;
+
 				if($rs)
 				{  
-                    $_SESSION['userid']=$userid;
-
+                   
 					header("location:admin_dashboard.php");
 				}
 

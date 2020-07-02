@@ -1,8 +1,5 @@
 
-<?php
-include('includes/config.php');
-$userid=$_SESSION['userid'];
-?>
+
 
  <!--  BEGIN NAVBAR  -->
  <div class="header-container">
@@ -163,24 +160,25 @@ $userid=$_SESSION['userid'];
                 </li>
     
                 <?php
-$userid=$_SESSION['userid'];
-
-$ret="SELECT * FROM superadmin where userid=? ";
+                
+                    $userid=$_SESSION['userid'];
+                    /*$ret="SELECT * FROM Superadmin where userid=? ";
                     $stmt= $conn->prepare($ret) ;
-                   $stmt->bind_param('i',$userid);
+                    $stmt->bind_param('i',$userid);
                     $stmt->execute() ;//ok
                     $res=$stmt->get_result();
-                    
+
                     while($row=$res->fetch_object())
-                    	  {
-                    	  	?>
+                    {
+                        */
+                ?>
 						<div class="profile_details w3l">		
                 <li class="nav-item dropdown user-profile-dropdown order-lg-0 order-1">
                     <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="user-profile-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="media">
                             <img src="assets/img/profile-7.jpg" class="img-fluid" alt="">
                             <div class="media-body align-self-center">
-                                <h6><span>Hi,</span> <?php echo  '$userid' ?></h6>
+                                <h6><span>Hi,</span> <?php echo $userid; ?></h6>
                             </div>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -203,7 +201,6 @@ $ret="SELECT * FROM superadmin where userid=? ";
                     </div>
 
                 </li>
-            <?php } ?>
             </ul>
         </header>
     </div>
