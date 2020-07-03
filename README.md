@@ -1,9 +1,11 @@
 # liteERP
 Simple web based Enterprise Resource Planing System.
 
-# AUTH CREDENTIALS:
+
+<h5>AUTH CREDENTIALS:</h5>
 <br>
-1. Super Admin <br>
+
+<h5>1. Super Admin </h5>
 email: sysadmin@liteerp.org <br>
 password : demo <br>
 
