@@ -2,7 +2,7 @@
 	$host = "localhost";
 	$user = "root";
 	$pass = "";
-	$db = "liteERP";
+	$db = "devlan_liteERP";
 	
 	$conn = new mysqli($host, $user, $pass, $db);
 	if($conn->connect_error){

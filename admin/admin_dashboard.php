@@ -1,10 +1,8 @@
 <?php
 session_start();
-include('includes/config.php');
-include('includes/checklogin.php');
+include('config/config.php');
+include('config/checklogin.php');
 check_login();
-//session_start();
-//$userid=$_SESSION['userid'];
 
 ?>
 <!DOCTYPE HTML>
