@@ -13,3 +13,7 @@ or <br>
 Username : Super Admin <br>
 Password : demo <br>
 
+<hr>
+<a href="https://github.com/Trans-DevLan/liteERP/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=Trans-DevLan/liteERP" />
+</a>
