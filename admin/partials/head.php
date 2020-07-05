@@ -29,7 +29,10 @@
     <link rel="stylesheet" type="text/css" href="assets/css/forms/theme-checkbox-radio.css">
     <link rel="stylesheet" type="text/css" href="assets/css/forms/switches.css">
     <!-- ./ Auth CSS Styles -->
-
+<!--  BEGIN CUSTOM STYLE FILE  -->
+<link rel="stylesheet" type="text/css" href="plugins/dropify/dropify.min.css">
+    <link href="assets/css/users/account-setting.css" rel="stylesheet" type="text/css" />
+    <!--  END CUSTOM STYLE FILE  -->
     <!--SWAL JS -->
     <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
     <script src="plugins/sweetalerts/custom-sweetalert.js"></script>
