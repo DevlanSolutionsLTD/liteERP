@@ -35,7 +35,7 @@
     <link href="assets/css/users/account-setting.css" rel="stylesheet" type="text/css" />
     <link href="assets/css/users/user-profile.css" rel="stylesheet" type="text/css" />
     <!-- ./User Profile css -->
-    
+
     <!--SWAL JS -->
     <script src="plugins/sweetalerts/sweetalert2.min.js"></script>
     <script src="plugins/sweetalerts/custom-sweetalert.js"></script>
@@ -73,7 +73,7 @@
             <script>
                         setTimeout(function () 
                         { 
-                            swal("Success","<?php echo $info;?>","info");
+                            swal("Warning","<?php echo $info;?>","info");
                         },
                             100);
             </script>
