@@ -1,25 +1,32 @@
 <?php
-session_start();
-include('config/config.php');
-include('config/checklogin.php');
-check_login();
+    session_start();
+    include('config/config.php');
+    include('config/checklogin.php');
+    check_login();
 
-?>
-<?php
-if(isset($_POST['admin_edit']))
-{
-    $admin_id = $_SESSION['admin_id'];
-    $admin_email=$_POST['admin_email'];
-    $admin_name=$_POST['admin_name'];
-    $pic=$_FILES["pic"]["name"];
-    move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
-    $query="update liteERP_admin set admin_email=?, admin_name=?, admin_dpic=? where admin_id=?";
-    $stmt = $conn->prepare($query);
-    $rc=$stmt->bind_param('sssi', $admin_email, $admin_name, $pic, $admin_id);
-    $stmt->execute();
-    $success = "Successively updated Admin info";
+    if(isset($_POST['admin_edit']))
+    {
+        $admin_id = $_SESSION['admin_id'];
+        $admin_email=$_POST['admin_email'];
+        $admin_name=$_POST['admin_name'];
+        $pic=$_FILES["pic"]["name"];
+        move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
+        $query="UPDATE liteERP_admin SET admin_email =?, admin_name =?, admin_dpic =? WHERE admin_id =?";
+        $stmt = $conn->prepare($query);
+        $rc=$stmt->bind_param('sssi', $admin_email, $admin_name, $pic, $admin_id);
+        $stmt->execute();
+
+        if($stmt)
+        {
+            //inject alert
+            $success = "Profile Updated" && header("refresh:1; url=admin_dashboard.php");
+        }
+        else 
+        {
+            $err = "Please Try Again Or Try Later";
+        } 
     }
-    ?>
+?>
 
 <!DOCTYPE HTML>
 <html>
@@ -43,7 +50,26 @@ if(isset($_POST['admin_edit']))
         <div class="search-overlay"></div>
 
         <!--  BEGIN TOPBAR  -->
-        <?php require_once("partials/top_bar.php");?>
+        <?php 
+            require_once("partials/top_bar.php");
+            $admin_id = $_SESSION['admin_id'];
+            $ret = "SELECT * FROM  liteERP_admin  WHERE admin_id = ?"; 
+            $stmt = $conn->prepare($ret) ;
+            $stmt->bind_param('i', $admin_id);
+            $stmt->execute() ;
+            $res = $stmt->get_result();
+            while($superAdmin = $res->fetch_object())
+            {
+                //default profile pic if logged in user has no profile picture
+                if($superAdmin->admin_dpic == '')
+                {
+                    $profilePic = "boy.png";
+                }
+                else
+                {
+                    $profilePic = $superAdmin->admin_dpic;
+                }
+        ?>
         <!--  END TOPBAR  -->
         <div id="content" class="main-content">
             <div class="layout-px-spacing">                
@@ -62,8 +88,8 @@ if(isset($_POST['admin_edit']))
                                                     <div class="row">
                                                         <div class="col-xl-2 col-lg-12 col-md-4">
                                                             <div class="upload mt-4 pr-md-4">
-                                                            <input type="file" name="pic" id="input-file-max-fs"class="dropify" data-default-file="assets/img/user-profile.jpeg"data-max-file-size="2M" >
-                                                                <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload Picture</p>
+                                                            <input type="file" name="pic" id="input-file-max-fs" class="img-thumbnail dropify" data-default-file="assets/img/<?php echo $profilePic;?>"data-max-file-size="2M" >
+                                                                <p class="mt-2"><i class="flaticon-cloud-upload mr-1"></i> Upload  Picture</p>
                                                             </div>
                                                         </div>
                                                         <div class="col-xl-10 col-lg-12 col-md-8 mt-md-0 mt-4">
@@ -72,34 +98,46 @@ if(isset($_POST['admin_edit']))
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label for="fullName">Admin Name</label>
-                                                                            <input type="text" class="form-control mb-4" name="admin_name" id="fullName">
+                                                                            <input type="text" class="form-control mb-4" value="<?php echo $superAdmin->admin_name;?>" name="admin_name" id="fullName">
                                                                         </div>
                                                                     </div>
-                                                                    
-                                                                <div class="form-group">
-                                                                    <label for="profession">E-mail</label>
-                                                                    <input type="email" class="form-control mb-4" name="admin_email" id="email" placeholder="" value="">
-                                                                </div>
+                                                                    <div class="col-sm-6">
+                                                                        <div class="form-group">
+                                                                            <label for="profession">E-mail</label>
+                                                                            <input type="email" class="form-control mb-4" value="<?php echo $superAdmin->admin_email;?>" name="admin_email" id="email" placeholder="" value="">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!--Load editor-->
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <label for="profession">Biography | About <?php echo $superAdmin->admin_name;?></label>
+                                                                            <textarea type="text" class="form-control mb-4" rows="10" name="admin_bio"><?php echo $superAdmin->admin_bio;?></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-12">
+                                                                        <div class="form-group">
+                                                                            <input type="submit" name="admin_edit" value="Update" class="btn btn-outline-warning mb-8 mr-4 btn-rounded">
+                                                                        </div>
+                                                                    </div>
+                                                                
+                                                                </div>                                                                    
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
-                                           
                                         </div>
-                                        <input type="submit" name="admin_edit" value="Update" class="btn btn-warning mb-8 mr-4 btn-rounded">
                                     </form>
                                 </div>
-</div>
-                               <!-- begin footer-->
-<?php require_once('partials/footer.php');?>    
-        <!--end footer-->
+                            </div>
+                            <!-- begin footer-->
+                        <?php require_once('partials/footer.php'); }?>    
+                    <!--end footer-->
                 </div>
-             </div>  
-       
+            </div>  
+        </div>
         <!--  END CONTENT AREA  -->
-                    
     </div>
     <!-- END MAIN CONTAINER -->
   
