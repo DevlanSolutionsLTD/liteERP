@@ -62,7 +62,7 @@
 
                                     ?>
                                     <div class="text-center user-info">
-                                        <img src="assets/img/<?php echo $profilePic;?>" alt="avatar">
+                                        <img src="assets/img/<?php echo $profilePic;?>" class="img-thumbnail " alt="avatar">
                                         <p class=""><?php echo $superAdmin->admin_name;?></p>
                                     </div>
                                     <div class="user-info-list">

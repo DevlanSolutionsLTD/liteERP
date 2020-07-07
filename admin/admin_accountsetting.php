@@ -12,7 +12,7 @@
         //prevent posting blank value for admin_name
         if (isset($_POST['admin_email']) && !empty($_POST['admin_email']))
         {
-            $admin_email=mysqli_real_escape_string($mysqli,trim($_POST['admin_email']));
+            $admin_email=mysqli_real_escape_string($conn,trim($_POST['admin_email']));
         }
         else
         {
@@ -23,7 +23,7 @@
         //Prevent posting blank value for admin_name
         if (isset($_POST['admin_name']) && !empty($_POST['admin_name'])) 
         {
-            $admin_name=mysqli_real_escape_string($mysqli,trim($_POST['admin_name']));
+            $admin_name=mysqli_real_escape_string($conn,trim($_POST['admin_name']));
         }
         else
         {
@@ -33,7 +33,7 @@
         
         //Prevent posting blank value for admin_bio | about |
         if (isset($_POST['admin_bio']) && !empty($_POST['admin_bio'])) {
-            $admin_bio=mysqli_real_escape_string($mysqli,trim($_POST['admin_bio']));
+            $admin_bio=mysqli_real_escape_string($conn,trim($_POST['admin_bio']));
         }
         else
         {
@@ -42,37 +42,29 @@
         }
 
         //No errors encountered that is no blank values posted,
-        if(!$error)
-            {
-                //Post values
-                $admin_id = $_SESSION['admin_id'];
-                $admin_email = $_POST['admin_email']; 
-                $admin_name = $_POST['admin_name'];
-                $admin_bio = $_POST['admin_bio'];
-                $pic=$_FILES["pic"]["name"];
-                move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
-                $query="UPDATE liteERP_admin SET admin_email =?, admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_id =?";
-                $stmt = $conn->prepare($query);
-                $rc=$stmt->bind_param('ssssi', $admin_email, $admin_name, $admin_bio, $pic, $admin_id);
-                $stmt->execute();
+        $admin_id = $_SESSION['admin_id'];
+        $admin_email = $_POST['admin_email']; 
+        $admin_name = $_POST['admin_name'];
+        $admin_bio = $_POST['admin_bio'];
+        $pic=$_FILES["pic"]["name"];
+        move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
+        $query="UPDATE liteERP_admin SET admin_email =?, admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_id =?";
+        $stmt = $conn->prepare($query);
+        $rc=$stmt->bind_param('ssssi', $admin_email, $admin_name, $admin_bio, $pic, $admin_id);
+        $stmt->execute();
 
-                if($stmt)
-                {
-                    //inject alert that profile is updated 
-                    $success = "Profile Updated" && header("refresh:1; url=admin_dashboard.php");
-                }
-                else 
-                {
-                    //inject alert that profile update task failed
-                    $info = "Please Try Again Or Try Later";
-                }
-            }
-        else
-            {
-                //throw a general error : fatal error on profile update task
-                $err = "Fatal Error";
-            }
+        if($stmt)
+        {
+            //inject alert that profile is updated 
+            $success = "Profile Updated" && header("refresh:1; url=admin_dashboard.php");
+        }
+        else 
+        {
+            //inject alert that profile update task failed
+            $info = "Please Try Again Or Try Later";
+        }
     }
+
 ?>
 
 <!DOCTYPE HTML>
