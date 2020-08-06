@@ -94,4 +94,12 @@
             </div>
     </body>
     <?php require_once('partials/scripts.php'); }?>
+    <!--Prevent LockScreen From Going Back-->
+    <script type = "text/javascript" >
+        var path = 'admin_lockscreen.php'; 
+        history.pushState(null, null, path + window.location.search);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, path + window.location.search);
+        });
+    </script>
 </html>

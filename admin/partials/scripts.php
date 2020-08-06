@@ -20,12 +20,3 @@ $(document).ready(function() {
 <script src="plugins/apex/apexcharts.min.js"></script>
 <script src="assets/js/dashboard/dash_2.js"></script>
 <script src="assets/js/authentication/form-2.js"></script>
-
-<!--Prevent LockScreen From Going Back-->
-<script type = "text/javascript" >
-    var path = 'admin_lockscreen.php'; 
-    history.pushState(null, null, path + window.location.search);
-    window.addEventListener('popstate', function (event) {
-        history.pushState(null, null, path + window.location.search);
-    });
-</script>
