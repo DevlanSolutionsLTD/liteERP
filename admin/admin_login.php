@@ -5,13 +5,15 @@
         {
             $login_user_email = $_POST['login_user_email'];
             $login_user_password = sha1(md5($_POST['login_user_password']));
-            $stmt=$conn->prepare("SELECT login_user_email, login_username, login_user_password, login_id FROM liteERP_Login WHERE ( login_user_email =? || ligin_username =? ) and login_user_password =? ");
-            $stmt->bind_param('sss',$login_user_email, $login_user_email, $login_user_password);
+            $login_user_permission = $_POST['login_user_permission'];
+            $stmt=$conn->prepare("SELECT login_user_email, login_username, login_user_password, login_id, login_user_permission FROM liteERP_Login WHERE ( login_user_email =? || ligin_username =? ) AND login_user_password =? AND login_user_permission =? ");
+            $stmt->bind_param('ssss',$login_user_email, $login_user_email, $login_user_password, $login_user_permission);
             $stmt->execute();
-            $stmt -> bind_result($login_user_email, $login_user_email, $login_user_password, $login_id);
+            $stmt -> bind_result($login_user_email, $login_user_email, $login_user_password, $login_id, $login_user_permission);
             $rs=$stmt->fetch();
             $_SESSION['login_id'] = $login_id;
-            if($rs)
+            $_SESSION['login_user_email'] = $login_user_email;
+            if($rs && $login_user_permission == '1')
             {  
                 header("location:admin_dashboard.php");
             }
@@ -40,6 +42,7 @@
                                         <label for="username">USERNAME | EMAIL</label>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <input id="username" name="login_user_email" type="text" class="form-control" >
+                                        <input id="username" style="display:none" value="1" name="login_user_permission" type="text" class="form-control" >
                                     </div>
                                     <div id="password-field" class="field-wrapper input mb-2">
                                         <div class="d-flex justify-content-between">
