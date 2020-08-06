@@ -9,11 +9,13 @@
 
             $stmt=$conn->prepare("SELECT login_user_email, login_user_password, login_id, login_user_permission FROM liteERP_Login WHERE login_user_email =? AND login_user_password =? AND login_user_permission =? ");
             $stmt->bind_param('sss',$login_user_email, $login_user_password, $login_user_permission);
+            
             $stmt->execute();
             $stmt -> bind_result($login_user_email, $login_user_password, $login_id, $login_user_permission);
             $rs=$stmt->fetch();
-            $_SESSION['login_id'] = $login_id;
+
             $_SESSION['login_user_email'] = $login_user_email;
+
             if($rs && $login_user_permission == '1')
             {  
                 header("location:admin_dashboard.php");

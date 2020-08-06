@@ -42,10 +42,9 @@
                                     </div>
                                     <?php
                                         //get logged in user details
-                                        $admin_id = $_SESSION['admin_id'];
-                                        $ret = "SELECT * FROM  liteERP_admin  WHERE admin_id = ?"; 
+                                        $login_user_email = $_SESSION['login_user_email'];
+                                        $ret = "SELECT * FROM  liteERP_admin  WHERE admin_email = '$login_user_email'"; 
                                         $stmt = $conn->prepare($ret) ;
-                                        $stmt->bind_param('i', $admin_id);
                                         $stmt->execute() ;
                                         $res = $stmt->get_result();
                                         while($superAdmin = $res->fetch_object())

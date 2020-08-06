@@ -42,13 +42,12 @@
         }
 
         //No errors encountered that is no blank values posted,
-        $admin_id = $_SESSION['admin_id'];
-        $admin_email = $_POST['admin_email']; 
+        $admin_email = $_SESSION['login_user_email'];
         $admin_name = $_POST['admin_name'];
         $admin_bio = $_POST['admin_bio'];
         $pic=$_FILES["pic"]["name"];
         move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
-        $query="UPDATE liteERP_admin SET admin_email =?, admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_id =?";
+        $query="UPDATE liteERP_admin SET admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_email =?";
         $stmt = $conn->prepare($query);
         $rc=$stmt->bind_param('ssssi', $admin_email, $admin_name, $admin_bio, $pic, $admin_id);
         $stmt->execute();
@@ -91,10 +90,9 @@
         <!--  BEGIN TOPBAR  -->
         <?php 
             require_once("partials/top_bar.php");
-            $admin_id = $_SESSION['admin_id'];
-            $ret = "SELECT * FROM  liteERP_admin  WHERE admin_id = ?"; 
+            $login_user_email = $_SESSION['login_user_email'];
+            $ret = "SELECT * FROM  liteERP_admin  WHERE admin_email = '$login_user_email'"; 
             $stmt = $conn->prepare($ret) ;
-            $stmt->bind_param('i', $admin_id);
             $stmt->execute() ;
             $res = $stmt->get_result();
             while($superAdmin = $res->fetch_object())

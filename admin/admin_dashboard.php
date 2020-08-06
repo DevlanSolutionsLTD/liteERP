@@ -1,9 +1,8 @@
 <?php
-session_start();
-include('config/config.php');
-include('config/checklogin.php');
-check_login();
-
+    session_start();
+    include('config/config.php');
+    include('config/checklogin.php');
+    check_login();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,10 +15,6 @@ check_login();
         <div class="spinner-grow align-self-center"></div>
     </div></div></div>
     <!--  END LOADER -->
-    <?php $login_user_email = $_SESSION['login_user_email'];
-    echo $login_user_email;
-    ?>
-
     <!--  BEGIN NAVBAR  -->
     <?php require_once("partials/nav.php");?>
     <!--  END NAVBAR  -->

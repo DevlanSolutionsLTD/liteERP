@@ -158,7 +158,6 @@
                 
                 <?php
                     $login_user_email = $_SESSION['login_user_email'];
-                    
                     $ret = "SELECT * FROM  liteERP_admin  WHERE admin_email = '$login_user_email'"; 
                     $stmt = $conn->prepare($ret) ;
                     $stmt->execute() ;
