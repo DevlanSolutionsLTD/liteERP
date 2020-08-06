@@ -6,61 +6,33 @@
 
     if(isset($_POST['admin_edit']))
     {
-        //Implement Error handling
-        $error = 0;
-
-        //prevent posting blank value for admin_name
-        if (isset($_POST['admin_email']) && !empty($_POST['admin_email']))
+        if ( empty($_POST["admin_name"]) || empty($_POST["admin_bio"]) ) 
         {
-            $admin_email=mysqli_real_escape_string($conn,trim($_POST['admin_email']));
+            $err="Blank Values Not Accepted!";
         }
         else
-        {
-            $error = 1;
-            $err="Email Cannot Be Empty";
-        }
+        { 
+            //No errors encountered that is no blank values posted,
+            $admin_email = $_SESSION['login_user_email'];
+            $admin_name = $_POST['admin_name'];
+            $admin_bio = $_POST['admin_bio'];
+            $pic=$_FILES["pic"]["name"];
+            move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
+            $query="UPDATE liteERP_admin SET admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_email =?";
+            $stmt = $conn->prepare($query);
+            $rc=$stmt->bind_param('ssss', $admin_name, $admin_bio, $pic, $admin_email);
+            $stmt->execute();
 
-        //Prevent posting blank value for admin_name
-        if (isset($_POST['admin_name']) && !empty($_POST['admin_name'])) 
-        {
-            $admin_name=mysqli_real_escape_string($conn,trim($_POST['admin_name']));
-        }
-        else
-        {
-            $error = 1;
-            $err="Name Cannot Be Empty";
-        }
-        
-        //Prevent posting blank value for admin_bio | about |
-        if (isset($_POST['admin_bio']) && !empty($_POST['admin_bio'])) {
-            $admin_bio=mysqli_real_escape_string($conn,trim($_POST['admin_bio']));
-        }
-        else
-        {
-            $error = 1;
-            $err="Biography Cannot Be Empty";
-        }
-
-        //No errors encountered that is no blank values posted,
-        $admin_email = $_SESSION['login_user_email'];
-        $admin_name = $_POST['admin_name'];
-        $admin_bio = $_POST['admin_bio'];
-        $pic=$_FILES["pic"]["name"];
-        move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
-        $query="UPDATE liteERP_admin SET admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_email =?";
-        $stmt = $conn->prepare($query);
-        $rc=$stmt->bind_param('ssssi', $admin_email, $admin_name, $admin_bio, $pic, $admin_id);
-        $stmt->execute();
-
-        if($stmt)
-        {
-            //inject alert that profile is updated 
-            $success = "Profile Updated" && header("refresh:1; url=admin_dashboard.php");
-        }
-        else 
-        {
-            //inject alert that profile update task failed
-            $info = "Please Try Again Or Try Later";
+            if($stmt)
+            {
+                //inject alert that profile is updated 
+                $success = "Profile Updated" && header("refresh:1; url=admin_profile.php");
+            }
+            else 
+            {
+                //inject alert that profile update task failed
+                $info = "Please Try Again Or Try Later";
+            }
         }
     }
 
@@ -141,7 +113,7 @@
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label for="profession">E-mail</label>
-                                                                            <input type="email" class="form-control mb-4" value="<?php echo $superAdmin->admin_email;?>" name="admin_email" id="email" placeholder="" value="">
+                                                                            <input type="email" class="form-control mb-4" readonly value="<?php echo $superAdmin->admin_email;?>" name="admin_email" id="email" placeholder="" value="">
                                                                         </div>
                                                                     </div>
 
