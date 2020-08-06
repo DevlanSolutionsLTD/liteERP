@@ -5,35 +5,29 @@
     //handle unclock
     if(isset($_POST['unlock']))
     {
-        //Implement Error handling
-        $error = 0;
-
-        //prevent posting blank value for password
-        if (isset($_POST['admin_password']) && !empty($_POST['admin_password']))
+        if ( empty($_POST["login_user_password"])) 
         {
-            $admin_password = mysqli_real_escape_string($conn,trim(sha1(md5($_POST['admin_password']))));
+            $err="Blank Values Not Accepted!";
         }
         else
-        {
-            $error = 1;
-            $err="Password Cannot Be Empty";
-        }
-
-        $admin_email = $_POST['admin_email'];
-        $admin_password = sha1(md5($_POST['admin_password']));//double encrypt to increase security
-        $stmt=$conn->prepare("SELECT admin_email, admin_password  FROM liteERP_admin  WHERE admin_email =? AND admin_password =?");
-        $stmt->bind_param('ss',  $admin_email, $admin_password);//bind fetched parameters
-        $stmt->execute();//execute bind 
-        $stmt -> bind_result($admin_email, $admin_password);//bind result
-        $rs=$stmt->fetch();
-        if($rs)
-        {
-            //if its sucessfull
-            header("location:admin_dashboard.php");
-        }
-        else
-        {
-            $err = "Access Denied Please Check Your Credentials";
+        { 
+          
+            $login_user_email = $_POST['login_user_email'];
+            $login_user_password = sha1(md5($_POST['login_user_password']));//double encrypt to increase security
+            $stmt=$conn->prepare("SELECT login_user_email, login_user_password  FROM liteERP_Login  WHERE login_user_email =? AND login_user_password =?");
+            $stmt->bind_param('ss',  $login_user_email, $login_user_password);//bind fetched parameters
+            $stmt->execute();//execute bind 
+            $stmt -> bind_result($login_user_email, $login_user_password);//bind result
+            $rs=$stmt->fetch();
+            if($rs)
+            {
+                //if its sucessfull
+                header("location:admin_dashboard.php");
+            }
+            else
+            {
+                $err = "Incorrect Credentials";
+            }
         }
 }  
 ?>
@@ -45,13 +39,11 @@
     <body class="form">
         
         <?php
-            $admin_id = $_SESSION['admin_id'];
-            $ret="SELECT * FROM `liteERP_admin` WHERE admin_id =? "; 
-            $stmt= $conn->prepare($ret) ;
-            $stmt->bind_param('i', $admin_id);
-            $stmt->execute();
-            $res=$stmt->get_result();
-            $cnt=1;
+            $login_user_email = $_SESSION['login_user_email'];
+            $ret = "SELECT * FROM  liteERP_admin  WHERE admin_email = '$login_user_email'"; 
+            $stmt = $conn->prepare($ret) ;
+            $stmt->execute() ;
+            $res = $stmt->get_result();
             while($superAdmin = $res->fetch_object())
             {
                 //Show default image if logged in user has no profile pic
@@ -82,11 +74,11 @@
                                 <form method="post" method="post" class="text-left">
                                     <div class="form">
                                         <div id="" class="field-wrapper input mb-2" style="display:none">
-                                            <input id="email" name="admin_email"  type="email" value="<?php echo $superAdmin->admin_email;?>" class="form-control" placeholder="Password">
+                                            <input id="email" name="login_user_email"  type="email" value="<?php echo $superAdmin->admin_email;?>" class="form-control" placeholder="Password">
                                         </div>
 
                                         <div id="password-field" class="field-wrapper input mb-2">
-                                            <input id="password" name="admin_password" type="password" class="form-control" placeholder="Password">
+                                            <input id="password" name="login_user_password" type="password" class="form-control" placeholder="Password">
                                         </div>
                                         <div class="d-sm-flex justify-content-between">
                                             <div class="field-wrapper">
@@ -100,17 +92,14 @@
                     </div>
                 </div>
             </div>
-        <?php }?>
-
-        
-        <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-        <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
-        <script src="bootstrap/js/popper.min.js"></script>
-        <script src="bootstrap/js/bootstrap.min.js"></script>
-        
-        <!-- END GLOBAL MANDATORY SCRIPTS -->
-        <script src="assets/js/authentication/form-1.js"></script>
-
     </body>
-
+    <?php require_once('partials/scripts.php'); }?>
+    <!--Prevent LockScreen From Going Back-->
+    <script type = "text/javascript" >
+        var path = 'admin_lockscreen.php'; 
+        history.pushState(null, null, path + window.location.search);
+        window.addEventListener('popstate', function (event) {
+            history.pushState(null, null, path + window.location.search);
+        });
+    </script>
 </html>
