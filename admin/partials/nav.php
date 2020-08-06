@@ -157,10 +157,9 @@
                 </li>
                 
                 <?php
-                    $login_id = $_SESSION['login_id'];
-                    $ret = "SELECT * FROM  liteERP_Login  WHERE login_id = ?"; 
+                    $login_user_email = $_SESSION['login_user_email'];
+                    $ret = "SELECT * FROM  liteERP_Login  WHERE admin_email = '$login_user_email'"; 
                     $stmt = $conn->prepare($ret) ;
-                    $stmt->bind_param('i', $login_id);
                     $stmt->execute() ;
                     $res = $stmt->get_result();
                     while($superAdmin = $res->fetch_object())
