@@ -12,7 +12,6 @@
         else
         { 
           
-
             $login_user_email = $_POST['login_user_email'];
             $login_user_password = sha1(md5($_POST['login_user_password']));//double encrypt to increase security
             $stmt=$conn->prepare("SELECT login_user_email, login_user_password  FROM liteERP_Login  WHERE login_user_email =? AND login_user_password =?");
