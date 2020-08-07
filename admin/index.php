@@ -18,7 +18,7 @@
 
             if($rs && $login_user_permission == '1')
             {  
-                header("location:admin_dashboard.php");
+                header("location:dashboard.php");
             }
             else
             {
@@ -50,7 +50,7 @@
                                     <div id="password-field" class="field-wrapper input mb-2">
                                         <div class="d-flex justify-content-between">
                                             <label for="password">PASSWORD</label>
-                                            <a target="_blank" href="admin_reset_pwd.php" class="forgot-pass-link">Forgot Password?</a>
+                                            <a target="_blank" href="reset_pwd.php" class="forgot-pass-link">Forgot Password?</a>
                                         </div>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                         <input id="password" name="login_user_password" required type="password" class="form-control" >

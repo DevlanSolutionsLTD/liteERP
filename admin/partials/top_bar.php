@@ -2,12 +2,12 @@
             <nav id="topbar">
                 <ul class="navbar-nav theme-brand flex-row  text-center">
                     <li class="nav-item theme-logo">
-                        <a href="admin_dashboard.php">
+                        <a href="dashboard.php">
                             <img src="assets/img/logo.svg" class="navbar-logo" alt="logo">
                         </a>
                     </li>
                     <li class="nav-item theme-text">
-                        <a href="admin_dashboard.php" class="nav-link"> liteERP </a>
+                        <a href="dashboard.php" class="nav-link"> liteERP </a>
                     </li>
                 </ul>
 
@@ -23,16 +23,16 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="dashboard" data-parent="#topAccordion">
                             <li class="active">
-                                <a href="admin_top_management_dashboard.php">Top management</a>
+                                <a href="top_management_dashboard.php">Top management</a>
                             </li>
                             <li>
-                                <a href="admin_sales_dashboard.php"> Sales </a>
+                                <a href="sales_dashboard.php"> Sales </a>
                             </li>
                             <li>
-                                <a href="admin_crm_dashbaord.php"> CRM </a>
+                                <a href="crm_dashbaord.php"> CRM </a>
                             </li>
                             <li>
-                                <a href="admin_hrm_dashboard.php"> HRM </a>
+                                <a href="hrm_dashboard.php"> HRM </a>
                             </li>
                         </ul>
                     </li>
@@ -47,13 +47,13 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="app" data-parent="#topAccordion">
                             <li>
-                                <a href="admin_new_staff.php"> New Staff </a>
+                                <a href="new_staff.php"> New Staff </a>
                             </li>
                             <li>
-                                <a href="admin_manage_staff.php"> Manage Staff </a>
+                                <a href="manage_staff.php"> Manage Staff </a>
                             </li>
                             <li>
-                                <a href="admin_login_permissions.php"> Login Permissions  </a>
+                                <a href="login_permissions.php"> Login Permissions  </a>
                             </li>
                         </ul>
                     </li>
@@ -68,13 +68,13 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="components" data-parent="#topAccordion">
                             <li>
-                                <a href="admin_new_product.php"> New Product </a>
+                                <a href="new_product.php"> New Product </a>
                             </li>
                             <li>
-                                <a href="admin_view_products.php"> View Products  </a>
+                                <a href="view_products.php"> View Products  </a>
                             </li>
                             <li>
-                                <a href="admin_manage_products.php"> Manage Products </a>
+                                <a href="manage_products.php"> Manage Products </a>
                             </li>                            
                         </ul>
                     </li>
@@ -90,13 +90,13 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="uiKit" data-parent="#topAccordion">
                             <li>
-                                <a href="admin_invoices.php"> Invoices </a>
+                                <a href="invoices.php"> Invoices </a>
                             </li>
                             <li>
-                                <a href="admin_revenues.php"> Revenues  </a>
+                                <a href="revenues.php"> Revenues  </a>
                             </li>
                             <li>
-                                <a href="admin_customers.php"> Customers </a>
+                                <a href="customers.php"> Customers </a>
                             </li>
                         </ul>
                     </li>
@@ -111,13 +111,13 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="tables"  data-parent="#topAccordion">
                             <li>
-                                <a href="admin_expenses_bills.php"> Bills </a>
+                                <a href="expenses_bills.php"> Bills </a>
                             </li>
                             <li>
-                                <a href="admin_payments.php"> Payments </a>
+                                <a href="payments.php"> Payments </a>
                             </li>
                             <li>
-                                <a href="admin_vendors.php"> Vendors </a>
+                                <a href="vendors.php"> Vendors </a>
                             </li>
                         </ul>
                     </li>
@@ -132,16 +132,16 @@
                         </a>
                         <ul class="collapse submenu list-unstyled" id="forms"  data-parent="#topAccordion">
                             <li>
-                                <a href="admin_accounting.php"> Accounting </a>
+                                <a href="accounting.php"> Accounting </a>
                             </li>
                             <li>
-                                <a href="admin_transefers.php"> Transfers </a>
+                                <a href="transefers.php"> Transfers </a>
                             </li>
                             <li>
-                                <a href="admin_transactions.php"> Transactions </a>
+                                <a href="transactions.php"> Transactions </a>
                             </li>
                             <li>
-                                <a href="admin_reconciliation.php"> Reconciliations </a>
+                                <a href="reconciliation.php"> Reconciliations </a>
                             </li>
                         </ul>
                     </li>

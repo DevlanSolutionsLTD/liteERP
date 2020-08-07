@@ -26,7 +26,7 @@
             if($stmt)
             {
                 //inject alert that profile is updated 
-                $success = "Profile Updated" && header("refresh:1; url=admin_profile.php");
+                $success = "Profile Updated" && header("refresh:1; url=profile.php");
             }
             else 
             {
