@@ -78,6 +78,6 @@
                 </div>
             </div>
         </div>    
-        <?php require_once('partials/scrits.php');?>
+        <?php require_once('partials/scripts.php');?>
     </body>
 </html>
