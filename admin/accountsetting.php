@@ -6,62 +6,33 @@
 
     if(isset($_POST['admin_edit']))
     {
-        //Implement Error handling
-        $error = 0;
-
-        //prevent posting blank value for admin_name
-        if (isset($_POST['admin_email']) && !empty($_POST['admin_email']))
+        if ( empty($_POST["admin_name"]) || empty($_POST["admin_bio"]) ) 
         {
-            $admin_email=mysqli_real_escape_string($conn,trim($_POST['admin_email']));
+            $err="Blank Values Not Accepted!";
         }
         else
-        {
-            $error = 1;
-            $err="Email Cannot Be Empty";
-        }
+        { 
+            //No errors encountered that is no blank values posted,
+            $admin_email = $_SESSION['login_user_email'];
+            $admin_name = $_POST['admin_name'];
+            $admin_bio = $_POST['admin_bio'];
+            $pic=$_FILES["pic"]["name"];
+            move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
+            $query="UPDATE liteERP_admin SET admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_email =?";
+            $stmt = $conn->prepare($query);
+            $rc=$stmt->bind_param('ssss', $admin_name, $admin_bio, $pic, $admin_email);
+            $stmt->execute();
 
-        //Prevent posting blank value for admin_name
-        if (isset($_POST['admin_name']) && !empty($_POST['admin_name'])) 
-        {
-            $admin_name=mysqli_real_escape_string($conn,trim($_POST['admin_name']));
-        }
-        else
-        {
-            $error = 1;
-            $err="Name Cannot Be Empty";
-        }
-        
-        //Prevent posting blank value for admin_bio | about |
-        if (isset($_POST['admin_bio']) && !empty($_POST['admin_bio'])) {
-            $admin_bio=mysqli_real_escape_string($conn,trim($_POST['admin_bio']));
-        }
-        else
-        {
-            $error = 1;
-            $err="Biography Cannot Be Empty";
-        }
-
-        //No errors encountered that is no blank values posted,
-        $admin_id = $_SESSION['admin_id'];
-        $admin_email = $_POST['admin_email']; 
-        $admin_name = $_POST['admin_name'];
-        $admin_bio = $_POST['admin_bio'];
-        $pic=$_FILES["pic"]["name"];
-        move_uploaded_file($_FILES["pic"]["tmp_name"],"assets/img/".$_FILES["pic"]["name"]);
-        $query="UPDATE liteERP_admin SET admin_email =?, admin_name =?, admin_bio =?, admin_dpic =? WHERE admin_id =?";
-        $stmt = $conn->prepare($query);
-        $rc=$stmt->bind_param('ssssi', $admin_email, $admin_name, $admin_bio, $pic, $admin_id);
-        $stmt->execute();
-
-        if($stmt)
-        {
-            //inject alert that profile is updated 
-            $success = "Profile Updated" && header("refresh:1; url=admin_dashboard.php");
-        }
-        else 
-        {
-            //inject alert that profile update task failed
-            $info = "Please Try Again Or Try Later";
+            if($stmt)
+            {
+                //inject alert that profile is updated 
+                $success = "Profile Updated" && header("refresh:1; url=profile.php");
+            }
+            else 
+            {
+                //inject alert that profile update task failed
+                $info = "Please Try Again Or Try Later";
+            }
         }
     }
 
@@ -91,10 +62,9 @@
         <!--  BEGIN TOPBAR  -->
         <?php 
             require_once("partials/top_bar.php");
-            $admin_id = $_SESSION['admin_id'];
-            $ret = "SELECT * FROM  liteERP_admin  WHERE admin_id = ?"; 
+            $login_user_email = $_SESSION['login_user_email'];
+            $ret = "SELECT * FROM  liteERP_admin  WHERE admin_email = '$login_user_email'"; 
             $stmt = $conn->prepare($ret) ;
-            $stmt->bind_param('i', $admin_id);
             $stmt->execute() ;
             $res = $stmt->get_result();
             while($superAdmin = $res->fetch_object())
@@ -143,7 +113,7 @@
                                                                     <div class="col-sm-6">
                                                                         <div class="form-group">
                                                                             <label for="profession">E-mail</label>
-                                                                            <input type="email" class="form-control mb-4" value="<?php echo $superAdmin->admin_email;?>" name="admin_email" id="email" placeholder="" value="">
+                                                                            <input type="email" class="form-control mb-4" readonly value="<?php echo $superAdmin->admin_email;?>" name="admin_email" id="email" placeholder="" value="">
                                                                         </div>
                                                                     </div>
 
@@ -181,23 +151,7 @@
     <!-- END MAIN CONTAINER -->
   
     <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-    <script src="assets/js/libs/jquery-3.1.1.min.js"></script>
-    <script src="bootstrap/js/popper.min.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="assets/js/app.js"></script>
-    
-    <script>
-        $(document).ready(function() {
-            App.init();
-        });
-    </script>
-        <script src="assets/js/users/account-settings.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <script src="plugins/dropify/dropify.min.js"></script>
-    <script src="plugins/blockui/jquery.blockUI.min.js"></script>
-    <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
-    <script src="assets/js/users/account-settings.js"></script>
+    <?php require_once('partials/scripts.php');?>
     <!-- END GLOBAL MANDATORY SCRIPTS -->
 </body>
 
