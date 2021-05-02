@@ -1,93 +1,107 @@
 <?php
-    session_start();
-    include('config/config.php');
-    include('config/checklogin.php');
-    check_login();
+session_start();
+include('config/config.php');
+include('config/checklogin.php');
+check_login();
 ?>
 <!DOCTYPE html>
-    <html lang="en">
-    <!--Head -->
-    <?php require_once('partials/head.php');?>
-    <!-- ./ Head -->
-    <body class="sidebar-noneoverflow">
-        
-        <!--  BEGIN NAVBAR  -->
-        <?php require_once('partials/nav.php');?>
-        <!--  END NAVBAR  -->
+<html lang="en">
+<!--Head -->
+<?php require_once('partials/head.php'); ?>
+<!-- ./ Head -->
 
-        <!--  BEGIN MAIN CONTAINER  -->
-        <div class="main-container" id="container">
+<body class="sidebar-noneoverflow">
 
-            <div class="overlay"></div>
-            <div class="search-overlay"></div>
+    <!--  BEGIN NAVBAR  -->
+    <?php require_once('partials/nav.php'); ?>
+    <!--  END NAVBAR  -->
 
-            <!--  BEGIN TOPBAR  -->
-            <?php require_once('partials/top_bar.php');?>
-            <!--  END TOPBAR  -->
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
 
-            <!--  BEGIN CONTENT AREA  -->
-            <div id="content" class="main-content">
-                <div class="layout-px-spacing">
+        <div class="overlay"></div>
+        <div class="search-overlay"></div>
 
-                    <div class="row layout-spacing">
+        <!--  BEGIN TOPBAR  -->
+        <?php require_once('partials/top_bar.php'); ?>
+        <!--  END TOPBAR  -->
 
-                        <!-- Content -->
-                        <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
 
-                            <div class="user-profile layout-spacing">
-                                <div class="widget-content widget-content-area">
-                                    <div class="d-flex justify-content-between">
-                                        <h3 class="">Info</h3>
-                                        <a href="accountsetting.php" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
-                                    </div>
-                                    <?php
-                                        //get logged in user details
-                                        $login_user_email = $_SESSION['login_user_email'];
-                                        $ret = "SELECT * FROM  liteERP_admin  WHERE admin_email = '$login_user_email'"; 
-                                        $stmt = $conn->prepare($ret) ;
-                                        $stmt->execute() ;
-                                        $res = $stmt->get_result();
-                                        while($superAdmin = $res->fetch_object())
-                                        {
-                                            //default profile pic if logged in user has no profile picture
-                                            if($superAdmin->admin_dpic == '')
-                                            {
-                                                $profilePic = "boy.png";
-                                            }
-                                            else
-                                            {
-                                                $profilePic = $superAdmin->admin_dpic;
-                                            }
+                <div class="row layout-spacing">
 
-                                    ?>
+                    <!-- Content -->
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Info</h3>
+                                    <a href="accountsetting.php" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+                                            <path d="M12 20h9"></path>
+                                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                                        </svg></a>
+                                </div>
+                                <?php
+                                //get logged in user details
+                                $login_user_email = $_SESSION['login_user_email'];
+                                $ret = "SELECT * FROM  liteERP_admin  WHERE admin_email = '$login_user_email'";
+                                $stmt = $conn->prepare($ret);
+                                $stmt->execute();
+                                $res = $stmt->get_result();
+                                while ($superAdmin = $res->fetch_object()) {
+                                    //default profile pic if logged in user has no profile picture
+                                    if ($superAdmin->admin_dpic == '') {
+                                        $profilePic = "boy.png";
+                                    } else {
+                                        $profilePic = $superAdmin->admin_dpic;
+                                    }
+
+                                ?>
                                     <div class="text-center user-info">
-                                        <img src="assets/img/<?php echo $profilePic;?>" class="img-thumbnail " alt="avatar">
-                                        <p class=""><?php echo $superAdmin->admin_name;?></p>
+                                        <img src="assets/img/<?php echo $profilePic; ?>" class="img-thumbnail " alt="avatar">
+                                        <p class=""><?php echo $superAdmin->admin_name; ?></p>
                                     </div>
                                     <div class="user-info-list">
 
                                         <div class="">
                                             <ul class="contacts-block list-unstyled">
                                                 <li class="contacts-block__item">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
-                                                     Administrator - liteERP
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee">
+                                                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                                        <line x1="6" y1="1" x2="6" y2="4"></line>
+                                                        <line x1="10" y1="1" x2="10" y2="4"></line>
+                                                        <line x1="14" y1="1" x2="14" y2="4"></line>
+                                                    </svg>
+                                                    Administrator - liteERP
                                                 </li>
                                                 <li class="contacts-block__item">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                                    <?php 
-                                                        // since employment
-                                                        echo date("d M Y ", strtotime($superAdmin->created_at));
-                                                        //Alternatively
-                                                        /*
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                    </svg>
+                                                    <?php
+                                                    // since employment
+                                                    echo date("d M Y ", strtotime($superAdmin->created_at));
+                                                    //Alternatively
+                                                    /*
                                                         $date = $superAdmin->created_at;
                                                         echo substr($date, 0, 10) ;  
                                                         */
                                                     ?>
                                                 </li>
-                                                
+
                                                 <li class="contacts-block__item">
-                                                    <a href="mailto:<?php echo $superAdmin->admin_email;?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                                        <?php echo $superAdmin->admin_email;?>
+                                                    <a href="mailto:<?php echo $superAdmin->admin_email; ?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
+                                                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                                            <polyline points="22,6 12,13 2,6"></polyline>
+                                                        </svg>
+                                                        <?php echo $superAdmin->admin_email; ?>
                                                     </a>
                                                 </li>
                                                 <!--
@@ -121,12 +135,12 @@
                                                     </li>
                                                 -->
                                             </ul>
-                                        </div>                                    
+                                        </div>
                                     </div>
-                                </div>
                             </div>
+                        </div>
 
-                            <!--
+                        <!--
                             <div class="education layout-spacing ">
                                 <div class="widget-content widget-content-area">
                                     <h3 class="">Education</h3>
@@ -219,11 +233,11 @@
                             </div>
                             -->
 
-                        </div>
+                    </div>
 
-                        <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
-                            
-                            <!--
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        <!--
                                 <div class="skills layout-spacing ">
                                     <div class="widget-content widget-content-area">
                                         <h3 class="">Skills</h3>
@@ -244,29 +258,31 @@
                                 </div>
                             -->
 
-                            <div class="bio layout-spacing ">
-                                <div class="widget-content widget-content-area">
-                                    <h3 class="">Bio</h3>
-                                    <p>
-                                        <?php echo $superAdmin->admin_bio;?>
-                                    </p>
-                                </div>                                
+                        <div class="bio layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Bio</h3>
+                                <p>
+                                    <?php echo $superAdmin->admin_bio; ?>
+                                </p>
                             </div>
                         </div>
-
                     </div>
-                </div>
-                <!-- footer-->
-                <?php require_once('partials/footer.php'); }?>
-                <!--./ Footer -->
 
-            <!--  END CONTENT AREA  -->
+                </div>
+            </div>
+            <!-- footer-->
+        <?php require_once('partials/footer.php');
+                                } ?>
+        <!--./ Footer -->
+
+        <!--  END CONTENT AREA  -->
 
         </div>
         <!-- END MAIN CONTAINER -->
-        
+
         <!-- BEGIN GLOBAL MANDATORY SCRIPTS -->
-        <?php require_once('partials/scripts.php');?>
+        <?php require_once('partials/scripts.php'); ?>
         <!-- END GLOBAL MANDATORY SCRIPTS -->
-    </body>
+</body>
+
 </html>
